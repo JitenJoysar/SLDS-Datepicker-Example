@@ -1,0 +1,111 @@
+<apex:page showHeader="false"
+           sidebar="false"
+           docType="html-5.0"
+           standardStylesheets="false"
+           applyBodyTag="false"
+           applyHtmlTag="false"
+           standardController="Campaign">
+    <html 
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <!-- Include SLDC CSS -->
+            <apex:stylesheet value="{!URLFOR($Resource.LightningDesignSystem, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+            <!-- Include JQuery -->
+            <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+            
+            <!-- Include appiphony Lightning Js Files-->
+            <script src="{!URLFOR($Resource.appiphonyLightningJs, '/jquery.aljs-init.min.js')}"></script>
+            <script src="{!URLFOR($Resource.appiphonyLightningJs, '/jquery.aljs-datepicker.min.js')}"></script>
+
+            <!-- Additional Style for page container -->
+            <style>
+                body{
+                      margin:3px !important;
+                    }
+                .pagecontainer{
+                  padding:50px;
+                }
+            </style>
+
+            <script type="text/javascript">
+            
+             //Datepicker Code script-- Starts
+                
+                var $j = jQuery.noConflict();
+                //Assigning SLDS Static Resource Path To A Variable To Use It With ALJS Initialization
+                
+                var assetsLoc = '{!URLFOR($Resource.LightningDesignSystem)}';
+                var eventDateValue = ''; 
+                
+                //Override Common Settings with SLDS Static Resource Path (Optional)       
+                $j.aljsInit({
+                  assetsLocation: assetsLoc, // Specifies the directory containing SLDS's assets directory 
+                  scoped: true               // Specifies whether or not the page is scoped using the slds class
+                });
+                   
+                $j(document).ready(function() {
+                 
+                //Initializing Datepicker 
+                 
+                 $j('#date').datepicker({
+                    initDate: moment(),   // Assign Today's Date
+                    format: 'DD/MM/YYYY', // Specify the Date Format Of Datepicker Input Field (YYYY-MM-DD,YYYY/MM/DD ,DD/MM/YYYY ....etc)
+
+                    // onChange function to change the value once it is selected
+                    onChange: function(datepicker) {
+
+                    // Specify the format      
+                    eventDateValue =moment(datepicker.selectedFullDate._d).format('DD/MM/YYYY');      
+                   }
+                  });
+                });
+                
+             //Datepicker Code script -- Ends
+            
+            </script>
+        </head>
+        <body >
+            <div class="slds">
+                <!-- PAGE HEADER -->
+                <div class="slds-page-header" role="banner">
+                  <div class="slds-media slds-media--center">
+                    <div class="slds-media__figure">
+                      <svg aria-hidden="true" class="slds-icon slds-icon-standard-opportunity">
+                        <use xlink:href="{!URLFOR($Resource.LightningDesignSystem,'assets/icons/action-sprite/svg/symbols.svg#new_event')}"></use>
+                      </svg>
+                    </div>
+                    <div class="slds-media__body">
+                      <h1 class="slds-page-header__title slds-truncate" title="Group Events">SLDS DATEPICKER EXAMPLE</h1>
+                    </div>
+                    
+                  </div>
+                </div>
+                <!-- / PAGE HEADER -->
+                <div class="pagecontainer">
+                    <div class="slds-form--stacked">
+                        <!--  DATEPICKER CODE -->
+                         <div class="slds-form-element">
+                         <label class="slds-form-element__label" for="date">
+                                Campaign Event Date
+                         </label> 
+                          <div class="slds-form-element__control" style="width:200px;">
+                           <div class="slds-input-has-icon slds-input-has-icon--right">
+                            <svg aria-hidden="true" class="slds-input__icon slds-icon-text-default">
+                             <use xlink:href="{!URLFOR($Resource.LightningDesignSystem, '/assets/icons/utility-sprite/svg/symbols.svg#event')}"></use>
+                            </svg> 
+                             <input id="date" class="slds-input" type="text" label="Date Picker Label" />
+                           </div>
+                          </div>
+                         </div>
+                        <!-- / DATEPICKER CODE -->
+                    </div>              
+                </div>
+            </div> 
+            <!-- Inclcude Moment Js -->
+            <apex:includeScript value="{!URLFOR($Resource.moment,'')}"/>
+        </body>
+    </html>
+</apex:page>
